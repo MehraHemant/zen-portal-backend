@@ -9,7 +9,7 @@ getAStudent,
   login,
   registerAStudent,
   resetPassword,
-  udpateDetails,
+  udpateDetails, getSelf
 } from "../Controllers/studentController.js";
 import { authMiddleware, isAdmin } from "../Middleware/authMiddleware.js";
 
@@ -21,8 +21,9 @@ router.get("/getStudents", authMiddleware, isAdmin, getAllStudents);
 router.post("/login", login);
 router.post("/forgot-password", forgotPasswordToken);
 router.post("/reset-password/:token", resetPassword);
+router.get("/getSelf", authMiddleware, getSelf);
 
-router.put("/:id", authMiddleware, udpateDetails);
+router.put("/updateSelf", authMiddleware, udpateDetails);
 router.put("/attend", authMiddleware, attendance);
 
 router.get("/:id", authMiddleware, isAdmin, getAStudent);

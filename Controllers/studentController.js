@@ -145,6 +145,16 @@ export const udpateDetails = expressAsyncHandler(async (req, res, next) => {
   }
 });
 
+export const getSelf = expressAsyncHandler(async (req, res, next) => {
+  try {
+    const id = req.user._id;
+const student = await Students.findById(id);
+    res.json(student);
+  } catch (err) {
+    throw new Error(err);
+  }
+});
+
 // Attendance
 export const attendance = expressAsyncHandler(async (req, res) => {
   try {
