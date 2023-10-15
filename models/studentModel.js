@@ -12,16 +12,16 @@ const userSchema = new Schema(
     },
     contact: {
       type: Number,
-      required: true, 
+      required: true,
     },
     email: {
       type: String,
       unique: true,
       required: true,
     },
-    role:{
+    role: {
       type: String,
-      default: "student"
+      default: "student",
     },
     password: {
       type: String,
@@ -37,30 +37,42 @@ const userSchema = new Schema(
     },
     qualification: {
       type: String,
+      default: "",
     },
     yearOfPassing: {
       type: Number,
+      default: "",
     },
     yearOfExperience: {
       type: Number,
+      default: "",
     },
     noticePeriod: {
       type: Number,
+      default: "",
     },
     github: {
       type: String,
+      default: "",
     },
     porfolio: {
       type: String,
+      default: "",
     },
     resume: {
       type: String,
+      default: "",
     },
     attend: {
       type: Array,
+      default: "",
     },
     resetLink: {
       type: String,
+    },
+    leave:{
+      type: Number,
+      default: 0,
     },
     refreshToken: String,
     passwordChangedAt: Date,

@@ -155,7 +155,7 @@ export const udpateDetails = expressAsyncHandler(async (req, res, next) => {
   }
 });
 
-export const getSelf = expressAsyncHandler(async (req, res, next) => {
+export const getSelf = expressAsyncHandler(async (req, res) => {
   try {
     const id = req.user._id;
     const student = await Students.findById(id).populate("batch");
@@ -217,4 +217,15 @@ export const resetPassword = expressAsyncHandler(async (req, res) => {
   user.passwordResetToken = undefined;
   await user.save();
   res.json(user);
+});
+
+// leaves
+export const leave = expressAsyncHandler(async (req, res) => {
+  const user = req.user;
+  const leave = await Students.findByIdAndUpdate(
+    user._id,
+    { $inc: { "leave": req.body.leave } },
+    { new: true }
+  );
+  res.json(leave);
 });

@@ -15,9 +15,6 @@ const sessionSchema = new Schema(
       type: String,
       required: true,
     },
-    time: {
-      type: String,
-    },
     contents: [
       {
         type: String,
@@ -28,6 +25,7 @@ const sessionSchema = new Schema(
         type: String,
       },
     ],
+    leaves: {type:Number, default: 0},
     activities: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "activities",
