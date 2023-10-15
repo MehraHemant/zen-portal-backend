@@ -9,7 +9,7 @@ export const authMiddleware = expressAsyncHandler(async (req, res, next) => {
     try {
       if (token) {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        const user = await Students.findById(decoded.id);
+        const user = await Students.findById(decoded.id).populate("batch");
         req.user = user;
         next();
       }

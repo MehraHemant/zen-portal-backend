@@ -13,8 +13,8 @@ const router = express.Router();
 
 router.post("/addsession", addSessions);
 router.post("/update/:id", updateSession);
-router.get("/get-all-sessions", getAllSessions);
 router.get("/get-session/:id", getSession);
+router.get("/get-all-sessions",authMiddleware, getAllSessions);
 router.put("/postAnswer/:id", authMiddleware, postAnswer);
 
 export default router;

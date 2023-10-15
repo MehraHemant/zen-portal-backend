@@ -19,6 +19,19 @@ export const registerAStudent = expressAsyncHandler(async (req, res) => {
   }
 });
 
+// Login using refreshToken
+export const LoginByRefreshToken = expressAsyncHandler(async (req, res) => {
+  const { token } = req.body;
+  const decoded = jwt.verify(token, process.env.JWT_SECRET);
+  const user = await Students.findById(decoded.id);
+  try {
+    if (user) {
+      res.json(user);
+    }
+  } catch (error) {
+    throw new Error("Token is invalid");
+  }
+});
 
 // Delete a Student
 export const deleteStudent = expressAsyncHandler(async (req, res) => {
@@ -30,7 +43,6 @@ export const deleteStudent = expressAsyncHandler(async (req, res) => {
     throw new Error(error);
   }
 });
-
 
 // To get all the students, need auth and should be admin
 export const getAllStudents = expressAsyncHandler(async (req, res, next) => {
@@ -46,7 +58,6 @@ export const getAllStudents = expressAsyncHandler(async (req, res, next) => {
   }
 });
 
-
 //Get a student
 export const getAStudent = expressAsyncHandler(async (req, res) => {
   const { id } = req.params;
@@ -57,7 +68,6 @@ export const getAStudent = expressAsyncHandler(async (req, res) => {
     throw new Error(err);
   }
 });
-
 
 // Login
 export const login = expressAsyncHandler(async (req, res) => {
@@ -148,7 +158,7 @@ export const udpateDetails = expressAsyncHandler(async (req, res, next) => {
 export const getSelf = expressAsyncHandler(async (req, res, next) => {
   try {
     const id = req.user._id;
-const student = await Students.findById(id);
+    const student = await Students.findById(id);
     res.json(student);
   } catch (err) {
     throw new Error(err);
@@ -177,8 +187,7 @@ export const forgotPasswordToken = expressAsyncHandler(async (req, res) => {
   if (!user) throw new Error("Email not found");
   try {
     const token = await user.createPasswordResetToken();
-    await user.save();
-    const resetURL = `Hi ${user.name}, Please follow this link to reset your password. This link is valid till 10 minutes from now. <a href="http://localhost:5000/api/user/reset-password/${token}">Click Here</a>`;
+    const resetURL = `Hi ${user.name}, Please follow this link to reset your password. This link is valid till 10 minutes from now. <a href="https://zen-portal-backend.onrender.com/api/reset-password/${token}">Click Here</a>`;
     const data = {
       to: email,
       subject: "Password Reset",

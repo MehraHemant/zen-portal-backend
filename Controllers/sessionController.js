@@ -86,14 +86,15 @@ export const postAnswer = expressAsyncHandler(async (req, res) => {
 });
 
 export const getAllSessions = expressAsyncHandler(async (req, res) => {
+  const batch = req.user.batch.name
   let sessions;
   try {
-    sessions = await Sessions.find()
+    sessions = await Sessions.findOne({"batch.name": batch})
       .populate("activities")
       .populate({ path: "activities", populate: "answers" });
     res.json(sessions);
   } catch (err) {
-    throw new Error(err);
+    throw new Error("No batch assigned yet");
   }
 });
 
