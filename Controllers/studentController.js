@@ -158,7 +158,7 @@ export const udpateDetails = expressAsyncHandler(async (req, res, next) => {
 export const getSelf = expressAsyncHandler(async (req, res, next) => {
   try {
     const id = req.user._id;
-    const student = await Students.findById(id);
+    const student = await Students.findById(id).populate("batch");
     res.json(student);
   } catch (err) {
     throw new Error(err);

@@ -86,10 +86,10 @@ export const postAnswer = expressAsyncHandler(async (req, res) => {
 });
 
 export const getAllSessions = expressAsyncHandler(async (req, res) => {
-  const batch = req.user.batch.name
+  const batch = req.user.batch._id;
   let sessions;
   try {
-    sessions = await Sessions.findOne({"batch.name": batch})
+    sessions = await Sessions.findOne({ batch: { $elemMatch: batch } })
       .populate("activities")
       .populate({ path: "activities", populate: "answers" });
     res.json(sessions);
