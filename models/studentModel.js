@@ -74,6 +74,15 @@ const userSchema = new Schema(
       type: Number,
       default: 0,
     },
+    photoUrl:{
+      type:String, default:""
+    },
+    videoUrl:{
+      type:String, default:""
+    },
+    description:{
+      type:String, default:""
+    },
     refreshToken: String,
     passwordChangedAt: Date,
     passwordResetToken: String,

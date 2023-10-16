@@ -25,13 +25,13 @@ const sessionSchema = new Schema(
         type: String,
       },
     ],
-    leaves: {type:Number, default: 0},
     activities: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "activities",
     },
     sessionLink: {
       type: String,
+      deafult: ""
     },
     batch: [
       {
@@ -39,6 +39,10 @@ const sessionSchema = new Schema(
         ref: "batch",
       },
     ],
+    recording: {
+      type: String,
+      default: ""
+    },
     commpleted: [
       {
         type: mongoose.Schema.Types.ObjectId,
