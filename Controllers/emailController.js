@@ -12,7 +12,7 @@ export const sendMail = expressAsyncHandler(async (data, req, res) => {
     },
   });
   let info = await transporter.sendMail({
-    from: 'noReply',
+    from: '"noReply" <abc@gmail.com>',
     to: data.to,
     subject: data.subject,
     text: data.text,

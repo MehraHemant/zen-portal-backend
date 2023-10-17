@@ -131,7 +131,6 @@ export const adminLogin = expressAsyncHandler(async (req, res) => {
 });
 
 // Logout User
-
 export const logout = expressAsyncHandler(async (req, res) => {
   const cookie = req.cookies;
   if (!cookie.refreshToken) {
@@ -187,7 +186,7 @@ export const forgotPasswordToken = expressAsyncHandler(async (req, res) => {
   if (!user) throw new Error("Email not found");
   try {
     const token = await user.createPasswordResetToken();
-    const resetURL = `Hi ${user.name}, Please follow this link to reset your password. This link is valid till 10 minutes from now. <a href="https://zen-portal-backend.onrender.com/api/reset-password/${token}">Click Here</a>`;
+    const resetURL = `Hi ${user.name}, Please follow this link to reset your password. This link is valid till 10 minutes from now. <a href="http://localhost:5173/api/reset-password/${token}">Click Here</a>`;
     const data = {
       to: email,
       subject: "Password Reset",
