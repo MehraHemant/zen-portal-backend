@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import { generateRefreshToken } from "../config/refreshToken.js";
 import { generateToken } from "../config/jwt.js";
 import { sendMail } from "../Utils/sendMail.js";
+import crypto from "crypto";
 
 dotenv.config();
 
@@ -186,7 +187,7 @@ export const forgotPasswordToken = expressAsyncHandler(async (req, res) => {
   if (!user) throw new Error("Email not found");
   try {
     const token = await user.createPasswordResetToken();
-    const resetURL = `Hi ${user.name}, Please follow this link to reset your password. This link is valid till 10 minutes from now. <a href="http://localhost:5173/api/reset-password/${token}">Click Here</a>`;
+    const resetURL = `Hi ${user.name}, Please follow this link to reset your password. This link is valid till 10 minutes from now. <a href="https://zen-student-portfolio-client.vercel.app/resetpassword/${token}">Click Here</a>`;
     const data = {
       to: email,
       subject: "Password Reset",
@@ -204,7 +205,7 @@ export const resetPassword = expressAsyncHandler(async (req, res) => {
   const password = req.body.password;
   const { token } = req.params;
   const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
-  const user = await findOne({
+  const user = await Students.findOne({
     passwordResetToken: hashedToken,
     passwordResetExpires: { $gt: Date.now() },
   });
