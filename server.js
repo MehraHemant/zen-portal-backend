@@ -7,6 +7,7 @@ import batchRouter from "./Routes/batchRoute.js";
 import answerRouter from "./Routes/answerRoute.js";
 import requirementRouter from "./Routes/requirementsRoute.js";
 import activityRouter from "./Routes/activityRoute.js";
+import placementRouter from "./Routes/placementRoute.js";
 import cors from "cors";
 import { errorHandler, notFound } from "./Middleware/errorHandler.js";
 
@@ -27,6 +28,7 @@ app.use("/api/answers", answerRouter);
 app.use("/api/batch", batchRouter);
 app.use("/api/requirements", requirementRouter);
 app.use("/api/activity", activityRouter);
+app.use("/api/placement", placementRouter);
 
 app.use(notFound);
 app.use(errorHandler);

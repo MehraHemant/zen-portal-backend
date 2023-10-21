@@ -17,6 +17,7 @@ const answerSchema = mongoose.Schema(
       ref: "student",
     },
     marks: Number,
+    comment: String,
     totalMarks: {
       type: Number,
       default: 10,
