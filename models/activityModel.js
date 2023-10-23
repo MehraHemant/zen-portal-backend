@@ -2,7 +2,10 @@ import mongoose from "mongoose";
 
 var activitySchema = new mongoose.Schema({
   title: String,
-  session: { type: mongoose.Schema.Types.ObjectId, ref: "session" },
+  session: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "session",
+  },
   type: {
     type: String,
     enum: ["capstone", "webcode", "webcode", "task"],
@@ -31,6 +34,7 @@ var activitySchema = new mongoose.Schema({
       type: String,
     },
   ],
+  comments: String,
   answers: [
     {
       type: mongoose.Schema.Types.ObjectId,
