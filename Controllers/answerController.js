@@ -2,7 +2,6 @@ import expressAsyncHandler from "express-async-handler";
 import answerModel from "../models/answerModel.js";
 import activityModel from "../models/activityModel.js";
 
-
 // Create new answer
 export const postAnswer = expressAsyncHandler(async (req, res) => {
   const { id } = req.params;
@@ -48,7 +47,10 @@ export const updateAnswer = expressAsyncHandler(async (req, res) => {
 export const getAnswerByActivity = expressAsyncHandler(async (req, res) => {
   const { id } = req.params;
   try {
-    const answer = await answerModel.findOne({activities: id, student: req.user._id});
+    const answer = await answerModel.findOne({
+      activities: id,
+      student: req.user._id,
+    });
     if (answer) {
       res.json(answer);
     } else {
@@ -58,7 +60,6 @@ export const getAnswerByActivity = expressAsyncHandler(async (req, res) => {
     throw new Error(error);
   }
 });
-
 
 // get all the task by user
 export const getAnswer = expressAsyncHandler(async (req, res) => {
@@ -104,11 +105,19 @@ export const updateMarks = expressAsyncHandler(async (req, res) => {
 export const getCapstone = expressAsyncHandler(async (req, res) => {
   const { id } = req.user;
   try {
-    const capstone = await answerModel
-      .find({ student: id})
-      .populate({path: "activities", match:{
-        type: "capstone"
-      }}).exec();
+    const capstone = [];
+    const answers = await answerModel
+      .find({ student: id })
+      .populate({
+        path: "activities",
+        match: {
+          type: "capstone",
+        },
+      })
+      .exec()
+      .then((res) =>
+        res.map((item) => item.activities !== null && capstone.push(item))
+      );
     res.send(capstone);
   } catch (error) {
     throw new Error(error);
@@ -118,10 +127,20 @@ export const getCapstone = expressAsyncHandler(async (req, res) => {
 export const getWebcode = expressAsyncHandler(async (req, res) => {
   const { id } = req.user;
   try {
-    const capstone = await answerModel
-      .find({ student: id, "activities.type": "webcode" })
-      .populate("activities");
-    res.send(capstone);
+    const webcode = [];
+    const answers = await answerModel
+    .find({ student: id })
+    .populate({
+      path: "activities",
+      match: {
+        type: "webcode",
+      },
+    })
+    .exec()
+    .then((res) =>
+      res.map((item) => item.activities !== null && webcode.push(item))
+    );
+    res.send(webcode);
   } catch (error) {
     throw new Error(error);
   }
