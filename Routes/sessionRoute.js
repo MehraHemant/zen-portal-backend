@@ -4,7 +4,6 @@ import { authMiddleware, isAdmin } from "../Middleware/authMiddleware.js";
 import {
   addSessions,
   getAdditionalSession,
-  getAllSessions,
   getRoadmapSession,
   getSession,
   postAnswer,
