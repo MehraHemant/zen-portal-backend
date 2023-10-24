@@ -1,6 +1,5 @@
 import expressAsyncHandler from "express-async-handler";
 import Activity from "../models/activityModel.js";
-import answerModel from "../models/answerModel.js";
 import sessionModel from "../models/sessionModel.js";
 
 export const createActivity = expressAsyncHandler(async (req, res) => {

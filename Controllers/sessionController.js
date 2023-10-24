@@ -85,13 +85,22 @@ export const postAnswer = expressAsyncHandler(async (req, res) => {
   }
 });
 
-export const getAllSessions = expressAsyncHandler(async (req, res) => {
+export const getAdditionalSession = expressAsyncHandler(async (req, res) => {
   const batch = req.user.batch;
   let sessions;
   try {
-    sessions = await Sessions.find({ batch: batch })
-      .populate("activities")
-      .populate({ path: "activities", populate: "answers" });
+    sessions = await Sessions.find({ batch: batch, sessionType: 'additional' })
+    res.json(sessions);
+  } catch (err) {
+    throw new Error(err);
+  }
+});
+
+export const getRoadmapSession = expressAsyncHandler(async (req, res) => {
+  const batch = req.user.batch;
+  let sessions;
+  try {
+    sessions = await Sessions.find({ batch: batch, sessionType: 'roadmap' })
     res.json(sessions);
   } catch (err) {
     throw new Error(err);
