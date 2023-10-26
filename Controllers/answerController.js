@@ -4,14 +4,13 @@ import activityModel from "../models/activityModel.js";
 
 // Create new answer
 export const postAnswer = expressAsyncHandler(async (req, res) => {
-  const { id } = req.params;
+  const { id } = req.params.id;
   const userId = req.user._id;
   try {
     const answer = await answerModel.create({
       activities: id,
-      answer: req.body.answer,
+      answer: req.body,
       student: userId,
-      marks: req.body.marks,
     });
     const activity = await activityModel.findByIdAndUpdate(
       id,
@@ -102,46 +101,3 @@ export const updateMarks = expressAsyncHandler(async (req, res) => {
   }
 });
 
-export const getCapstone = expressAsyncHandler(async (req, res) => {
-  const { id } = req.user;
-  try {
-    const capstone = [];
-    const answers = await answerModel
-      .find({ student: id })
-      .populate({
-        path: "activities",
-        match: {
-          type: "capstone",
-        },
-      })
-      .exec()
-      .then((res) =>
-        res.map((item) => item.activities !== null && capstone.push(item))
-      );
-    res.send(capstone);
-  } catch (error) {
-    throw new Error(error);
-  }
-});
-
-export const getWebcode = expressAsyncHandler(async (req, res) => {
-  const { id } = req.user;
-  try {
-    const webcode = [];
-    const answers = await answerModel
-    .find({ student: id })
-    .populate({
-      path: "activities",
-      match: {
-        type: "webcode",
-      },
-    })
-    .exec()
-    .then((res) =>
-      res.map((item) => item.activities !== null && webcode.push(item))
-    );
-    res.send(webcode);
-  } catch (error) {
-    throw new Error(error);
-  }
-});

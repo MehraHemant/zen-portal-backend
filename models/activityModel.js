@@ -8,7 +8,7 @@ var activitySchema = new mongoose.Schema({
   },
   type: {
     type: String,
-    enum: ["capstone", "webcode", "webcode", "task"],
+    enum: ["capstone", "webcode", "task"],
     default: "task",
   },
   tags: [
@@ -41,6 +41,10 @@ var activitySchema = new mongoose.Schema({
       ref: "answer",
     },
   ],
+  assginTo: [    {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "student",
+  },]
 });
 
 export default mongoose.model("activities", activitySchema);
