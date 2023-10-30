@@ -2,6 +2,8 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import studentRouter from "./Routes/studentRoute.js";
+import certificateRouter from "./Routes/certificateRoute.js";
+import applicationRouter from "./Routes/applicationRoute.js";
 import sessionRouter from "./Routes/sessionRoute.js";
 import batchRouter from "./Routes/batchRoute.js";
 import answerRouter from "./Routes/answerRoute.js";
@@ -23,6 +25,8 @@ app.use(
 app.use(express.json());
 
 app.use("/api", studentRouter);
+app.use("/api/certificate", certificateRouter);
+app.use("/api/application", applicationRouter);
 app.use("/api/session", sessionRouter);
 app.use("/api/answers", answerRouter);
 app.use("/api/batch", batchRouter);
