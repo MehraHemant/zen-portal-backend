@@ -75,9 +75,9 @@ export const getAnswer = expressAsyncHandler(async (req, res) => {
         },
       });
     if (answer) {
-      res.json(answer);
+      res.send(answer);
     } else {
-      throw new Error("No result found");
+      res.send("No result found");
     }
   } catch (error) {
     throw new Error(error);
@@ -100,4 +100,3 @@ export const updateMarks = expressAsyncHandler(async (req, res) => {
     throw new Error(error);
   }
 });
-

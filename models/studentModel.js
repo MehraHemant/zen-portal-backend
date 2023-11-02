@@ -30,6 +30,7 @@ const userSchema = new Schema(
     batch: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "batch",
+      default: '6510f6b53c76f592463c940f'
     },
     registerDate: {
       type: Date,
